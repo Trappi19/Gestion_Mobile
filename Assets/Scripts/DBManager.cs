@@ -124,12 +124,7 @@ public class DBManager : MonoBehaviour
                         p.id = rdr.GetInt32(0);
                         p.nom = rdr.GetString(1);
 
-                        string dateStr = rdr.GetString(2); // format YYYY-MM-DD dans la BDD
-                        DateTime dernierPassage = DateTime.Parse(dateStr);
-                        p.dernierPassage = dernierPassage;
-
-                        TimeSpan ts = DateTime.Now.Date - dernierPassage.Date;   // nb jours
-                        p.joursDepuis = (int)ts.TotalDays;                       // [web:41]
+                        p.joursDepuis = rdr.GetInt32(2);                      // [web:41]
 
                         personnes.Add(p);
                     }
@@ -223,12 +218,18 @@ public class DBManager : MonoBehaviour
 
             foreach (var part in parts)
             {
-                if (string.IsNullOrWhiteSpace(part)) continue;
-                int id = int.Parse(part.Trim());
+                string trimmed = part.Trim();
+
+                // Skip si vide ou pas un nombre valide
+                if (string.IsNullOrWhiteSpace(trimmed)) continue;
+                if (!int.TryParse(trimmed, out int id))
+                {
+                    Debug.LogWarning("BuildNamesFromIds: valeur ignorée = '" + trimmed + "'");
+                    continue;
+                }
 
                 using (var cmd = conn.CreateCommand())
                 {
-                    // 1) Essaye dans plats
                     cmd.CommandText = "SELECT nom_plat FROM plats WHERE id = @id";
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@id", id);
@@ -239,7 +240,6 @@ public class DBManager : MonoBehaviour
                     }
                     else
                     {
-                        // 2) Sinon essaye dans ingredients
                         cmd.CommandText = "SELECT nom_ingredient FROM ingredients WHERE id = @id";
                         result = cmd.ExecuteScalar();
                         if (result != null)
@@ -286,6 +286,5 @@ public class PersonData
 {
     public int id;
     public string nom;
-    public DateTime dernierPassage;
     public int joursDepuis;
 }
