@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class MenueManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public GameObject DetailPersonPanel;
+    public GameObject PersonPanel;
+    public GameObject HistoricPanel;
+    public GameObject IngredientsPanel;
+    public GameObject PlatsPanel;
 
-    // Update is called once per frame
-    void Update()
+    public static void OpenPanel(Detail)
     {
-        
+        panel.SetActive(true);
     }
 }
