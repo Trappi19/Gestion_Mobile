@@ -116,7 +116,7 @@ public class DBManager : MonoBehaviour
                 conn.Open();
                 Debug.Log("DBMOBILE: connexion OK");
 
-                string sql = "SELECT id, nom FROM personnes";
+                string sql = "SELECT id, nom, dernier_passage FROM personnes";
                 using (var cmd = new SqliteCommand(sql, conn))
                 using (IDataReader rdr = cmd.ExecuteReader())
                 {
@@ -124,7 +124,8 @@ public class DBManager : MonoBehaviour
                     {
                         int id = rdr.GetInt32(0);
                         string nom = rdr.GetString(1);
-                        sb.AppendLine(id + " - " + nom);
+                        int dernier_passage = rdr.GetInt32(2);
+                        sb.AppendLine(id + " - " + nom + "|" + dernier_passage);
                     }
                 }
             }
