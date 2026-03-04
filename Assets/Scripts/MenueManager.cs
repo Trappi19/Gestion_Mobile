@@ -21,8 +21,21 @@ public class MenueManager : MonoBehaviour
         //PlatsPanel.SetActive(false);
     }
 
+
+
+    // Personnal panel
     public void OpenPersonPanel()
     {
-            PersonPanel.SetActive(true);
+        PersonPanel.SetActive(true);
+    }
+
+    public void ClosePersonPanel()
+    {
+        PersonPanel.SetActive(false);
+    }
+    public void CloseDetailPersonPanel()
+    {
+        PersonPanel.SetActive(true);
+        DetailPersonPanel.SetActive(false);
     }
 }
