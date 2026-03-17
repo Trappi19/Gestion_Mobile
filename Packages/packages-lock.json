@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "33135342e868201eb0d4cef821ecab90caca373e"
     },
+    "com.scaredcrowgames.androiddatepicker": {
+      "version": "https://github.com/scaredcrowgames/androiddatepicker.git?path=src",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "68d3c6642e8d8785d313a20173a398c0af975f79"
+    },
     "com.unity.2d.animation": {
       "version": "13.0.4",
       "depth": 0,
